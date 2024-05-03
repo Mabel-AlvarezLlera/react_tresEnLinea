@@ -26,6 +26,10 @@ function Board() {
   */
   const [squares, setSquares] = useState(Array(9).fill(null));
 
+  // Para que cuando se de al botón de nuevo juego los puntos no se reinicien
+  const [xPoints, setXPoints] = useState(0);
+  const [oPoints, setOPoints] = useState(0);
+
   function handleClick(i) {
     // Si el cuadrado ya está relleno o si ya se ha hecho 3 en línea no se hace nada
     if (calculateWinner(squares) || squares[i]) {
@@ -54,10 +58,22 @@ function Board() {
     status = "Siguiente jugador: " + (xIsNext? "X" : "O");
   }
 
+  // Para contar los puntos de partidas de cada jugador
+  let pointsX = xPoints;
+  let pointsO = oPoints;
+
+  if (winner === "X") {
+    pointsX++;
+  } else if (winner === "O") {
+    pointsO++;
+  }
+
   // Función que reinicia el tablero para empezar un juego nuevo
   function handleClickNuevoJuego() {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
+    setXPoints(pointsX);
+    setOPoints(pointsO);
   }
 
   return (
@@ -65,41 +81,52 @@ function Board() {
       { /* 
         <> es un Fragmento que se usa para envolver múltiples elementos JSX (en nuestro caso los button) 
         */ }
-      <div className='tablero'>
+      <div className='game'>
         <h1>Tres en línea</h1>
 
-        <div className='status'>{status}</div>
+        <div className='containerGame'>
+          <div className='panel'>
+            <div className='status'>{status}</div>
+            
+            <div className='boards'>
+              <div className='board-row'>
+                { /* 
+                  () => es una función flecha, que es una forma más corta de definir funciones.
+                  Cuándo se hace clic en el cuadrado se ejecutará el código después de la flecha (=>),
+                  es decir, handleClick(0).
+                */ }
+                <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+              </div>
+
+              <div className='board-row'>
+                <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+              </div>
+
+              <div className='board-row'>
+                <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+              </div>
+            </div>
+
+            <div className='newGame'>
+              <button className='newGameButton' onClick={handleClickNuevoJuego}>
+                Nuevo juego
+              </button>
+            </div>
+          </div>
+
+          <div className='points'>
+            <h3>Puntos:</h3>
+            <p className='pointsX'>- X: {pointsX}</p>
+            <p className='pointsY'>- O: {pointsO}</p>
+          </div>
+        </div>
         
-        <div className='boards'>
-        <div className='board-row'>
-          { /* 
-            () => es una función flecha, que es una forma más corta de definir funciones.
-            Cuándo se hace clic en el cuadrado se ejecutará el código después de la flecha (=>),
-            es decir, handleClick(0).
-            */ }
-            <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-            <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-            <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-          </div>
-
-          <div className='board-row'>
-            <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-            <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-            <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-          </div>
-
-          <div className='board-row'>
-            <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-            <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-            <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-          </div>
-        </div>
-
-        <div className='reiniciar'>
-          <button className='nuevoJuego' onClick={handleClickNuevoJuego}>
-            Nuevo juego
-          </button>
-        </div>
       </div>
     </>
   );

@@ -17,11 +17,25 @@ code {
     monospace;
 }
 
-.tablero {
-  display: grid;
-  justify-content: center;
-  align-items: center;
+.game {
   background: #162944;
+}
+
+.containerGame {
+  display: grid;
+  grid-template-columns: 63% 42%;
+}
+
+.panel {
+  display: grid;
+  justify-content: end;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.points {
+  color: #fff;
+  padding-left: 20px;
 }
 
 .square {
@@ -53,7 +67,7 @@ code {
   color: #fff;
 }
 
-.reiniciar {
+.newGame {
   margin-top: 10px;
   margin-bottom: 10px;
   display: grid;
@@ -61,7 +75,7 @@ code {
   align-items: center;
 }
 
-.nuevoJuego {
+.newGameButton {
   padding: 15px;
   font-size: 14px;
   color: #fff;
@@ -89,4 +103,9 @@ h1 {
   display: grid;
   justify-content: center;
   align-items: center;
+}
+
+.pointsX, 
+.pointsY {
+  margin-left: 10px;
 }
