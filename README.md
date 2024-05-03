@@ -6,3 +6,4 @@ Funcionalidades:
 
 - Jugar un juego y que muestre el ganador.
 - Reiniciar la partida.
+- Tabla de puntuaciones.
