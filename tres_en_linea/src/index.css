@@ -19,11 +19,15 @@ code {
 
 .game {
   background: #162944;
+  width: 70%;
+  display: table;
+  margin: 0 auto;
 }
 
 .containerGame {
   display: grid;
-  grid-template-columns: 63% 42%;
+  grid-template-columns: 50% 50%;
+  margin: 5px;
 }
 
 .panel {
